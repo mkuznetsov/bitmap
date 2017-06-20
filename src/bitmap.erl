@@ -6,7 +6,7 @@
 %%%-------------------------------------------------------------------
 -module(bitmap).
 
--export([compress/1, decompress/1, empty/0, size_compressed/1, size_decompressed/1]).
+-export([compress/1, decompress/1, empty/0, empty256/0, size_compressed/1, size_decompressed/1]).
 -export([get/2, set/3, append/2]).
 -export([logical_and/2, logical_or/2, logical_not/1]).
 
@@ -26,6 +26,10 @@ compress(Bin1) when is_bitstring(Bin1) -> #{data=>compress_(Bin1)}.
 decompress(#{data :=B}) -> decompress_(B).
 
 empty() -> compress(<<>>).
+
+% small hack for fix empty arrays
+empty256() ->
+  compress(<<2#0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000:256>>).
 
 size_compressed(#{data := B}) -> bit_size(B).
 
