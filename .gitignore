@@ -1,0 +1,6 @@
+ebin
+.fetch 
+
+# MacOS specific files
+.DS_Store
+
